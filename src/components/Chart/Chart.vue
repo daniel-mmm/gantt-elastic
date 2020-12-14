@@ -51,11 +51,11 @@
           >
             <days-highlight></days-highlight>
             <grid></grid>
-            <dependency-lines :tasks="root.visibleTasks"></dependency-lines>
+            <dependency-lines :tasks="root.newVisibleTasks"></dependency-lines>
             <g
               class="gantt-elastic__chart-row-wrapper"
               :style="{ ...root.style['chart-row-wrapper'] }"
-              v-for="task in root.visibleTasks"
+              v-for="task in root.newVisibleTasks"
               :task="task"
               :key="task.id"
             >

@@ -1436,6 +1436,35 @@ const GanttElastic = {
       return visibleTasks;
     },
 
+    newVisibleTasks() {
+      var newVisibleTasks = [];
+      this.visibleTasks.map((resourceTask, index) => {
+        this.fillTasks(resourceTask.items).map((task) => {
+          task = Object.assign({}, task);
+          task.width =
+            task.duration / this.state.options.times.timePerPixel - this.style['grid-line-vertical']['stroke-width'];
+          if (task.width < 0) {
+            task.width = 0;
+          }
+          task.height = this.state.options.row.height;
+          task.x = this.timeToPixelOffsetX(task.startTime);
+          task.y =
+            (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
+            this.state.options.chart.grid.horizontal.gap;
+          // console.log('----');
+          // console.log(task.duration);
+          // console.log(this.state.options.times.timePerPixel);
+          // console.log(this.style['grid-line-vertical']['stroke-width']);
+          // console.log(task.width);
+          // console.log(task.height);
+          // console.log(task.x);
+          // console.log(task.y);
+          newVisibleTasks.push(task);
+        });
+      });
+      return newVisibleTasks;
+    },
+
     /**
      * Style shortcut
      */
