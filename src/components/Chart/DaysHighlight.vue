@@ -13,16 +13,27 @@
     :style="{ ...root.style['chart-days-highlight-container'] }"
     v-if="showWorkingDays"
   >
-    <rect
-      class="gantt-elastic__chart-days-highlight-rect"
-      v-for="day in workingDays"
-      :key="getKey(day)"
-      :x="day.offset.px"
-      y="0"
-      :width="day.width.px"
-      height="100%"
-      :style="{ ...root.style['chart-days-highlight-rect'] }"
-    ></rect>
+    <template v-for="day in workingDays">
+      <rect
+        :key="getKey(day)+'_1'"
+        class="gantt-elastic__chart-days-highlight-rect"
+        :x="day.offset.px"
+        y="0"
+        :width="day.width.px"
+        height="100%"
+        :style="{ ...root.style['chart-days-highlight-rect']}"
+      ></rect>
+      <rect
+        v-if="dayjs(day.time).day() == 0"
+        :key="getKey(day)+'_2'"
+        _class="gantt-elastic__chart-days-highlight-rect"
+        :x="day.offset.px + day.width.px"
+        y="0"
+        :width="1"
+        height="100%"
+        :style="{ fill: '#666', 'z-index': 200}"
+      ></rect>
+    </template>
   </g>
 </template>
 
@@ -32,7 +43,9 @@ export default {
   name: 'DaysHighlight',
   inject: ['root'],
   data() {
-    return {};
+    return {
+      dayjs
+    };
   },
   methods: {
     /**
