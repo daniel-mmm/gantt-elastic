@@ -10,7 +10,7 @@
   <svg
     class="gantt-elastic__chart-row-text-wrapper"
     :style="{ ...root.style['chart-row-text-wrapper'] }"
-    :x="task.x + task.width + root.state.options.chart.text.offset"
+    :x="task.x + root.state.options.chart.text.offset"
     :y="task.y - root.state.options.chart.grid.horizontal.gap"
     :width="getWidth"
     :height="getHeight"
